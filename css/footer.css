@@ -1,0 +1,70 @@
+footer{
+  background-color: rgb(34, 34, 34);
+  /* height:20vh; */
+  font-size: 10px;
+  text-align: left;
+}
+
+.footer_inner{
+  width: 82%;
+  margin:0 auto;
+  display: flex;
+  color:white;
+  justify-content: center;
+  line-height: 40px;
+}
+
+.column_title{
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 15px;
+}
+
+.hidden_letter{
+  color:rgb(34, 34, 34);
+  user-select: none;
+}
+
+.column_gap{
+  margin:0 10px;
+}
+
+.footer_logo{
+  text-align: center;
+  color:white;
+  margin-bottom:50px;
+  font-size: 10px;
+  margin-top: 181px;
+}
+
+.footer_pic{
+  width:100%;
+  height:100%;
+}
+
+.sns_account{
+  display: flex;
+  font-size:30px;
+  padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.sns_account a{
+  color:white;
+}
+
+.twitter_account{
+  margin-right:20px;
+}
+
+.app_img{
+  vertical-align: bottom;
+}
+
+.otherlinks:hover{
+  text-decoration: solid;
+}
+
+.otherlinks a{
+  color:white;
+}

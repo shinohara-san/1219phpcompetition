@@ -1,0 +1,73 @@
+.popular{
+  text-align: center;
+  font-weight: bolder;
+  font-size: 25px;
+  padding-top:40px;
+  padding-bottom:20px;
+  background:white;
+}
+
+.category_keyword{
+  display: flex;
+  justify-content: center;
+      padding-bottom: 27px;
+    background: white;
+}
+
+.category_keyword div{
+  background: rgb(240, 239, 239);
+  border-radius: 24px;
+  margin: 0 20px;
+  padding:14px;
+}
+
+#slide img{
+  width: 100%;
+}
+
+.slider{
+  position: relative;
+}
+
+.fa-chevron-left{
+  left: 62px;
+    font-size: 40px;
+    position: absolute;
+    top: 176px;
+    z-index: 1;
+    color: white;
+}
+
+.fa-chevron-right{
+    right: 62px;
+    font-size: 40px;
+    position: absolute;
+    top: 174px;
+    z-index: 1;
+    color: white;
+}
+
+.shuppin_btn{
+  position: fixed;
+  width:100px;
+  right: 20px;
+  bottom: 35px;
+  color:white;
+  background:red;
+  border-radius: 50%;
+  padding: 42px;
+  font-size:18px;
+  text-align: center;
+}
+
+.shuppin_btn a{
+  color:white;
+}
+
+.camera_btn{
+  text-align: center;
+  font-size: 72px;
+}
+
+
+

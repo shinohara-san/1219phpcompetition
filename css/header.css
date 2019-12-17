@@ -1,0 +1,204 @@
+* {
+  padding: 0;
+  margin: 0;
+  user-select: none;
+  font-family: Arial, Helvetica, sans-serif;
+  /* overflow-y: scroll; */
+  list-style: none;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+i {
+  vertical-align: text-bottom;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+/* header */
+header {
+  font-size: 16px;
+  position: relative;
+}
+
+.header_top {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.header_width {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header_img {
+  margin-right: 40px;
+}
+
+.header_img img {
+  height: 40px;
+}
+
+.search_box {
+  background: rgb(240, 239, 239);
+  border-radius: 5px;
+  border: 1px solid darkgray;
+  width: 60%;
+  height: 35px;
+  position: relative;
+}
+
+.search_box:hover {
+  cursor: text;
+}
+
+.search_box input {
+  border: none;
+  background: rgb(240, 239, 239);
+  font-size: 16px;
+  padding: 5px;
+  height: 25px;
+  border-radius: 5px;
+  width: 98%;
+  position: relative;
+}
+
+.search_logo {
+  right: 13px;
+  color: black;
+  position: absolute;
+  top: 10px;
+}
+
+/* ------------------------------ */
+
+.menu_row {
+  width: 74%;
+  margin: 0 auto;
+  display: flex;
+  padding: 10px 0;
+}
+
+.menu_row span {
+  color: red;
+}
+
+.flex_left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flex_right {
+  display: flex;
+  margin-left: auto;
+  /* display:none; */
+}
+
+.member{
+  display:none;
+}
+
+.btn {
+  padding: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.register {
+  background: red;
+}
+
+.register a {
+  color: white;
+}
+
+.login {
+  margin-left: 5px;
+  border: 1px solid blue;
+}
+
+.login a {
+  color: blue;
+}
+
+.non_member {
+  /* display: none; */
+}
+
+.iine:hover {
+  color: blue;
+  transition: 0.3s;
+}
+.iine a:hover {
+  color: blue;
+  transition: 0.3s;
+}
+
+.notice {
+  margin: 0 10px;
+}
+
+.notice:hover {
+  color: blue;
+  transition: 0.3s;
+}
+.notice a:hover {
+  color: blue;
+  transition: 0.3s;
+  
+}
+
+.todo {
+  margin-right: 10px;
+}
+
+.todo:hover {
+  color: blue;
+  transition: 0.3s;
+}
+.todo a:hover {
+  color: blue;
+  transition: 0.3s;
+  
+}
+
+.mypage:hover {
+  color: blue;
+  transition: 0.3s;
+}
+.mypage a:hover {
+  color: blue;
+  transition: 0.3s;
+}
+
+.brand_search {
+  margin-left: 6px;
+}
+
+.brand_search:hover {
+  color: blue;
+
+}
+
+.brand_search a:hover {
+  color: blue;
+}
+.category_search {
+  margin-left: 6px;
+}
+
+.category_search:hover {
+  color: blue;
+}
+
+.category_search a:hover {
+  color: blue;
+}

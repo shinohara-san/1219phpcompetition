@@ -1,0 +1,128 @@
+.list1{
+  display: none;
+    background: white;
+    position: absolute;
+    top: 67px;
+    left: 166px;
+    margin:20px;
+    width:205px;
+    font-size: 13px;
+    z-index: 1;
+    /* box-shadow: 0px 5px 7px gray; */
+}
+
+.list1 li{
+  line-height: 48px;
+    padding: 0 10px
+}
+
+.list1 li:hover{
+  background-color: red;
+}
+
+.list1 li:hover a{
+  color:white;
+}
+
+.ladies_category{
+  display: none;
+    top: 0px;
+    position: absolute;
+    background: white;
+    left: 205px;
+    z-index: 1;
+    width:200px;
+    /* box-shadow: 0px 5px 7px gray; */
+}
+
+.ladies_list:hover .ladies_category{
+  display:block;
+  color:black;
+  background:white;
+}
+
+.ladies_list:hover .ladies_category li:hover{
+  background:darkgray;
+}
+
+.ladies_list:hover .ladies_category li a{
+  /* background:white; */
+  color:black;
+}
+
+.ladies_list:hover .ladies_category .skirt:hover .skirt_category li a{
+  background:white;
+}
+
+.ladies_list:hover .ladies_category .skirt:hover .skirt_category li:hover a{
+  background:darkgray;
+}
+
+.ladies_list:hover .ladies_category li:hover a{
+  background:darkgray;
+  /* position: absolute;
+  left:50px; */
+}
+
+.skirt_category{
+  display: none;
+  top: 0px;
+    position: absolute;
+    background: white;
+    left: 200px;
+    z-index: 1;
+    width:200px;
+  /* box-shadow: 0px 5px 7px gray; */
+}
+
+
+.skirt:hover .skirt_category{
+  display:block;
+}
+
+
+.list2{
+  display: none;
+  background: white;
+    position: absolute;
+    top: 67px;
+    left: 342px;
+    margin:20px;
+    width:205px;
+    font-size: 13px;
+    z-index: 1;
+    /* box-shadow: 0px 5px 5px gray; */
+}
+
+.list2 li{
+  line-height: 48px;
+    padding: 0 10px
+}
+
+.list2 li:hover{
+  background-color: red;
+}
+
+.list2 > li:hover a{
+  color:white;
+}
+
+.gnav .category_search:hover .list1{
+  display: block;
+}
+
+.ladies_list{
+  margin-top: 11px;
+  position: relative;
+  
+}
+
+
+
+
+
+
+/* .ladies_category li a{
+  color:black;
+} */
+

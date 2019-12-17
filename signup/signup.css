@@ -1,0 +1,123 @@
+*{
+  outline: none;
+}
+
+input{
+  border:1px solid darkgray;
+}
+
+.form_inner{
+  width:50%;
+  margin:0 auto;
+  padding:50px 0;
+}
+
+.section_input{
+  width: 100%;
+}
+.section_input input{
+  width: 95%;
+  margin:10px 0;
+  font-size:16px;
+  padding:5px;
+}
+
+.caution{
+  font-size:14px;
+  color:darkgray;
+}
+
+.section_divider{
+  padding-top:10px;
+}
+
+.detail{
+  font-size:14px;
+  color: rgb(117, 116, 116);
+  padding-bottom:15px;
+}
+
+.name_flex{
+  display:flex;
+  justify-content: space-between;
+}
+
+.name_flex div{
+  width:48%;
+}
+
+.birthday_wrapper{
+  display: flex;
+  padding:10px 0;
+}
+
+.birthday_wrapper select{
+  font-size: 15px;
+}
+
+.ymd_position{
+      top: 4px;
+    position: relative;
+    font-size: 16px;
+    background: white;
+    color: black;
+}
+
+.agreement{
+  padding:20px 0;
+  text-align: center;
+  font-size:14px;
+  color: rgb(117, 116, 116);
+}
+
+.usage_rule{
+      background: white;
+    color: blue;
+    font-size: 14px;
+    padding: 0;
+    vertical-align: baseline;
+    cursor: pointer;
+}
+
+.usage_rule:hover{
+  opacity:0.8;
+  text-decoration: underline;
+}
+
+button.wide_btn{
+  width:100%;
+  font-size:14px;
+}
+
+.see_more{
+  width: 52%;
+  color: blue;
+  margin-left: auto;
+  line-height: 43px;
+
+}
+
+.see_more:hover{
+  opacity:0.8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.protection{
+  background:rgb(240, 239, 239);
+  width:80%;
+  padding:6px 12px;
+  margin:10px auto;
+  font-size:14px;
+}
+
+.bg_gray{
+  background:rgb(240, 239, 239);
+}
+
+div.alert{
+  color:red;
+  display: none;
+  padding-bottom:8px;
+  width:100%;
+}

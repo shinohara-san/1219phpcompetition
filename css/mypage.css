@@ -1,0 +1,93 @@
+main{
+  background:rgb(245, 244, 244);
+}
+
+.main_wrapper{
+  display: flex;
+    width: 74%;
+    margin: 0 auto;
+  
+}
+
+
+
+.right_top_flex{
+  display: flex;
+}
+
+.mypage_right_middle{
+  display: flex;
+}
+
+.transaction{
+  display:flex;
+}
+
+.mypage_header{
+  border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+  /* box-shadow: 0px 9px 3px -3px rgba(0,0,0,0.6); */
+  /* box-shadow: 4px 0px 0px black; */
+}
+
+.mypage_header div{
+      padding: 10px;
+    width: 74%;
+    margin: 0 auto;
+}
+
+.mypage_header div a:hover{
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.mypage_left{
+  background: white;
+    margin: 20px;
+    width: 28%;
+}
+
+.mypage_right{
+  background: white;
+    margin: 20px;
+    width: 69%;
+}
+
+.border_btm{
+  border-bottom:3px solid rgb(245, 244, 244);
+}
+
+.mypage_left_title{
+  background: lightgray;
+  padding-left: 20px;
+  
+}
+.mypage_left_title:hover{
+  background: lightgray;
+  
+}
+
+
+.sub_title{
+  background: rgb(245, 244, 244);
+}
+
+h2{
+  font-size: 16px;
+  padding: 20px 20px 20px 0;
+}
+
+
+
+.mypage_left div{
+  padding:20px;
+  cursor: pointer;
+}
+
+.mypage_left div:hover{
+  background:#eaf1fa;
+}
+
+.mypage_right_top{
+  background-image: url();
+}
