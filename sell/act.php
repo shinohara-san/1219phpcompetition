@@ -24,7 +24,7 @@ $pdo = connectToDb();
 //POSTデータ取得
 
 $user_id = $_SESSION['id'];
-echo $user_id;
+// echo $user_id;
 
 $name = $_POST['name'];
 $description = $_POST['description'];

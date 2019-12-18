@@ -1,11 +1,17 @@
 <?php
-// session_start();
+
+session_start();
 include('functions.php');
+
+// var_dump($_GET);
+// var_dump($_POST);
+// var_dump($_SESSION);
+// exit();
 
 // checkSessionId();
 $headerMenu = headerMenu();
 $footerMenu = footerMenu();
-// $pdo = connectToDb();
+$pdo = connectToDb();
 
 ?>
 <!DOCTYPE html>
@@ -34,7 +40,7 @@ $footerMenu = footerMenu();
       <h1>ブルーアイズホワイトドラゴン</h1>
       <div class="item_flex">
         <div class="image_section">
-          <img src="blueeys.png" alt="">
+          <img src="dummy/blueeys.png" alt="">
         </div>
         <div class="info_section">
           <table id="table" border="1">
@@ -79,7 +85,7 @@ $footerMenu = footerMenu();
 
       <h2>¥360<span>(税込)送料込み</span></h2>
 
-      <button type="button" class="proceed_to_purchase"><a href="#">購入画面に進む</a></button>
+      <button type="button" class="proceed_to_purchase"><a href="purchase.php">購入画面に進む</a></button>
 
       <div class="item_description">あああああああああああああああ</div>
       <!-- 商品の説明はありません -->

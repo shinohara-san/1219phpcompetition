@@ -1,18 +1,22 @@
 
 .product_section{
   background:rgb(240, 239, 239);
-  
+  /* width:80%;
+  margin:auto; */
 }
 
 .product_section_inner{
-  width: 80%;
+  width: 100%;
     margin: 0 auto;
+    background:rgb(240, 239, 239);
+      /* width: 100%;
+    margin: 0 auto; */
 }
 
 .product_inner{
       flex-wrap: wrap;
     display: flex;
-    width: 85%;
+    width: 70%;
     margin: 0 auto;
     justify-content: space-between;
     padding-bottom: 60px;
@@ -56,7 +60,7 @@
 .category_title{
     padding-top: 50px;
     display: flex;
-    width: 85%;
+    width: 70%;
     margin: 0 auto;
     padding-bottom: 10px;
 }

@@ -28,7 +28,7 @@ $('.price_input_input').on('change', function () {
     return;
   }
   // console.log(price);
-  let profit = $('.transaction_fee').text(price * 0.1);
+  let profit = Math.floor($('.transaction_fee').text(price * 0.1));
   profit = (profit[0].textContent);
   $('.profit').text(price - profit);
 });

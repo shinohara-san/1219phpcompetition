@@ -1,11 +1,13 @@
 <?php
-// session_start();
+session_start();
 include('functions.php');
 
-// checkSessionId();
+checkSessionId();
 $headerMenu = headerMenu();
 $footerMenu = footerMenu();
-// $pdo = connectToDb();
+$pdo = connectToDb();
+
+// 写真をデータベースから持ってくる
 
 ?>
 
@@ -48,7 +50,6 @@ $footerMenu = footerMenu();
         <div class="border_btm">評価一覧</div>
         <div class="border_btm">ガイド</div>
         <div>お問い合わせ</div>
-
 
         <h2 class="sub_title">メルペイ</h2>
         <div class="border_btm">残高・振込申請</div>
