@@ -37,7 +37,7 @@ function checkSessionId()
     !isset($_SESSION['session_id']) ||
     $_SESSION['session_id'] != session_id()
   ) {
-    header('Location: ../index.php'); // ダメだった場合ログイン画面へ移動
+    header('Location: index.php'); // ダメだった場合ログイン画面へ移動
   } else {
     session_regenerate_id(true); // OKの場合セッションidの再生成
     $_SESSION['session_id'] = session_id(); // 新しくできたセッション変数を格納

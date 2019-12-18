@@ -7,9 +7,46 @@ include('functions.php');
 // var_dump($_POST);
 // var_dump($_SESSION);
 // exit();
+if (
+  !isset($_SESSION['session_id']) ||
+  $_SESSION['session_id'] != session_id()
+) {
+  // header('Location: index.php'); // ダメだった場合ログイン画面へ移動
+  $view = '<div class="flex_right">
+          <div class="register btn">
+            <a href="signup/signup.php">新規会員登録</a>
+          </div>
+          <div class="login btn">
+            <a href="login/login.php">ログイン</a>
+          </div>
+        </div>';
+  $comment = '';
+} else {
+  session_regenerate_id(true); // OKの場合セッションidの再生成
+  $_SESSION['session_id'] = session_id();
+  // 新しくできたセッション変数を格納
+  $id = $_SESSION['id'];
+  $view = '<div class="flex_right">
+          <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
+          <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
+          <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
+          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
+        </div>';
+  $comment = '<div class="gap">コメント</div>
+    <div class="comment_area">
+      <div class="comment_rule">相手のことを考え丁寧なコメントを心がけましょう。不快な言葉遣いなどは利用制限や退会処分となることがあります。</div>
+      <form action="comment.php" method="POST">
+        <textarea name="comment"></textarea>
+        <button type="submit">コメントする</button>
+      </form>
+    </div>
+  </main>';
+}
 $id = intval($_GET['id']);
-$user_id = intval($_SESSION['id']);
-// checkSessionId();
+// echo $id;
+// exit();
+
+
 // $headerMenu = headerMenu();
 $footerMenu = footerMenu();
 $pdo = connectToDb();
@@ -45,15 +82,28 @@ if ($status == false) {
   <link rel="stylesheet" href="css/item_detail.css">
 
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-
+  <style>
+    .search_box button {
+      height: 100%;
+      width: 6%;
+      top: -14px;
+      right: 3px;
+      padding: 0;
+    }
+  </style>
   <title>商品詳細ページ</title>
 </head>
 
 <body>
   <div class="header_width">
+
     <div class="header_top">
       <div class="header_img"><a href="index.php"><img src="img/top_logo.png" alt="ロゴ"></a></div>
-      <div class="search_box"><input id="search_box" type="text" name="search" placeholder=" 何かお探しですか？"><a class="search_logo" href="#"><i class="fas fa-search"></i></a></div>
+      <div style="width: 86%;">
+        <form style="width:100%;" name="top_form" action="list.php" method="GET">
+          <div class="search_box"><input id="search_box" type="text" name="search" placeholder=" 何かお探しですか？"><button><i class="fas fa-search"></i></button></div>
+        </form>
+      </div>
     </div>
 
     <div class="menu_row">
@@ -126,25 +176,11 @@ if ($status == false) {
           </ul>
         </div>
       </div>
+      <?= $view ?>
 
-      <div class="flex_right">
-        <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
-        <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
-        <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-        <div class="mypage"><a href="mypage.php?id=<?= $user_id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
-      </div>
-
-      <div class="flex_right">
-        <div class="register btn">
-          <a href="signup/signup.php">新規会員登録</a>
-        </div>
-        <div class="login btn">
-          <a href="login/login.php">ログイン</a>
-        </div>
-      </div>;
 
     </div>
-  </div>;
+  </div>
 
   <main>
     <div class="gap">商品</div>
@@ -160,7 +196,7 @@ if ($status == false) {
             <tr>
               <th>出品者</th>
               <th></th>
-              <!-- <th><?= $rs['nickname']?></th> -->
+              <!-- <th><?= $rs['nickname'] ?></th> -->
             </tr>
             <tr>
               <th>カテゴリー</th>
@@ -207,19 +243,11 @@ if ($status == false) {
         <div class="blue"><i class="fas fa-lock"></i> あんしん・あんぜんへの取り組み</div>
       </div>
     </div>
+    <?= $comment ?>
     <div class="gap">コメント</div>
-    <div class="comment_area">
-      <div class="comment_rule">相手のことを考え丁寧なコメントを心がけましょう。不快な言葉遣いなどは利用制限や退会処分となることがあります。</div>
-      <form action="comment.php" method="POST">
-        <textarea name="comment"></textarea>
-        <button type="submit">コメントする</button>
-      </form>
-    </div>
-  </main>
-  <div class="gap">コメント</div>
-  <?= $footerMenu ?>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="js/main.js"></script>
+    <?= $footerMenu ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

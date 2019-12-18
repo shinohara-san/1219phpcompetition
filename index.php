@@ -3,18 +3,33 @@ session_start();
 include('functions.php');
 
 // checkSessionId();
-// if (
-//   !isset($_SESSION['session_id']) ||
-//   $_SESSION['session_id'] != session_id()
-// ) {
-//   // header('Location: index.php'); // ダメだった場合ログイン画面へ移動
-// } else {
-//   session_regenerate_id(true); // OKの場合セッションidの再生成
-//   $_SESSION['session_id'] = session_id(); // 新しくできたセッション変数を格納
+if (
+  !isset($_SESSION['session_id']) ||
+  $_SESSION['session_id'] != session_id()
+) {
+  // header('Location: index.php'); // ダメだった場合ログイン画面へ移動
+  $view = '<div class="flex_right">
+          <div class="register btn">
+            <a href="signup/signup.php">新規会員登録</a>
+          </div>
+          <div class="login btn">
+            <a href="login/login.php">ログイン</a>
+          </div>
+        </div>';
+} else {
+  session_regenerate_id(true); // OKの場合セッションidの再生成
+  $_SESSION['session_id'] = session_id();
+  // 新しくできたセッション変数を格納
+  $id = $_SESSION['id'];
+  $view = '<div class="flex_right">
+          <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
+          <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
+          <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
+          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
+        </div>';
+}
 
-// }
 
-$id = $_SESSION['id'];
 // echo $id;
 // exit();
 
@@ -169,25 +184,25 @@ $nike = $stmt->fetchAll();
             </ul>
           </div>
         </div>
-
-        <div class="flex_right">
+        <?= $view ?>
+        <!-- <div class="flex_right">
           <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
           <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
           <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
           <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
-        </div>
+        </div> -->
 
-        <div class="flex_right">
+        <!-- <div class="flex_right">
           <div class="register btn">
             <a href="signup/signup.php">新規会員登録</a>
           </div>
           <div class="login btn">
             <a href="login/login.php">ログイン</a>
           </div>
-        </div>
+        </div> -->
 
       </div>
-    </div>;
+    </div>
 
     <div class="slider">
       <div><img src="img/slide1.png"></div>
