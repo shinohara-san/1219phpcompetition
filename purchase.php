@@ -2,7 +2,25 @@
 session_start();
 include('functions.php');
 
+$id = $_GET['id'];
+// exit();
+
 checkSessionId();
+$pdo = connectToDb();
+
+$sql = "DELETE FROM `product` WHERE `product`.`id` = :id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$status = $stmt->execute();
+
+//データ表示
+if ($status == false) {
+  // エラーのとき
+  showSqlErrorMsg($stmt);
+} else {
+  // エラーでないとき
+  $rs = $stmt->fetch();
+}
 
 
 ?>

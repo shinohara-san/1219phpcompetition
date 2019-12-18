@@ -28,8 +28,10 @@ h1{
 
 .image_section{
       width: 70%;
-      
-    
+}
+
+.image_section img{
+  width: 94%;
 }
 
 table{

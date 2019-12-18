@@ -7,7 +7,27 @@ $headerMenu = headerMenu();
 $footerMenu = footerMenu();
 $pdo = connectToDb();
 
+// var_dump(intval($_GET['id']));
+// exit();
 // 写真をデータベースから持ってくる
+$id = intval($_GET['id']);
+
+$sql = 'SELECT * FROM user_table WHERE id = :id';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$status = $stmt->execute();
+
+//データ表示
+if ($status == false) {
+  // エラーのとき
+  showSqlErrorMsg($stmt);
+} else {
+  // エラーでないとき
+  $rs = $stmt->fetch();
+}
+
+// echo $rs;
+// exit();
 
 ?>
 
@@ -68,7 +88,7 @@ $pdo = connectToDb();
       <div class="mypage_right">
         <div class="mypage_right_top">
           <div class="profile_picture"><img src="https://gurimu-blog.com/wp-content/uploads/%E6%9C%89%E6%9D%91%E6%9E%B6%E7%B4%94-%E5%A4%A7%E5%AD%A6.jpg" alt=""></div>
-          <div class="user_name">YK</div>
+          <div class="user_name"><?= $rs['nickname']?></div>
           <div class="right_top_flex">
             <div>評価 59</div>
             <div>出品数 69</div>
