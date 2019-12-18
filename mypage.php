@@ -30,6 +30,7 @@ $footerMenu = footerMenu();
   <div class="mypage_header">
     <div><a href="index.php">メルカリ</a>　&gt;　マイページ</div>
   </div>
+
   <main>
     <div class="main_wrapper">
       <div class="mypage_left">
@@ -60,39 +61,51 @@ $footerMenu = footerMenu();
         <div class="border_btm">メール/パスワード</div>
         <div class="border_btm">本人情報</div>
         <div class="border_btm">電話番号の確認</div>
-        <div>ログアウト</div>
+        <div><a href="logout.php">ログアウト</a></div>
       </div>
 
       <div class="mypage_right">
         <div class="mypage_right_top">
-          <div class="profile_picture"><img src="" alt=""></div>
-          <div>YK</div>
+          <div class="profile_picture"><img src="https://gurimu-blog.com/wp-content/uploads/%E6%9C%89%E6%9D%91%E6%9E%B6%E7%B4%94-%E5%A4%A7%E5%AD%A6.jpg" alt=""></div>
+          <div class="user_name">YK</div>
           <div class="right_top_flex">
             <div>評価 59</div>
             <div>出品数 69</div>
           </div>
         </div>
         <div class="mypage_right_middle">
-          <div>お知らせ</div>
-          <div>やることリスト</div>
+          <div class="oshirase  bg_gray tab is-active">お知らせ</div>
+          <div class="yarukotorisuto bg_gray tab">やることリスト</div>
         </div>
-        <div class="notice">
+        <div class="notice_from_merukari panel is-show">
+          <div class="notice_msg">
+            <img src="img/mercari_profile.png" alt="">あああああああああ</div>
+          <hr>
+          <div class="notice_msg"><img src="img/mercari_profile.png" alt="">いいいいいいいいい</div>
+          <hr>
+          <div class="notice_msg"><img src="img/mercari_profile.png" alt="">ううううううううう</div>
+          <hr>
+          <div class="notice_msg"><img src="img/mercari_profile.png" alt="">えええええええええ</div>
+          <hr>
+          <div class="notice_msg"><img src="img/mercari_profile.png" alt="">おおおおおおおおお</div>
+          <hr>
+          <div class="check_all">一覧を見る</div>
+        </div>
+        <div class="todolist panel">
+          <div class="nothingtodo_pic"><img src="img/gray_logo.png" alt=""></div>
+          <p class="nothingtodo">現在、やることリストはありません</p>
+</div>
 
-        </div>
-        <div class="todo" hidden>
 
-        </div>
-        <div>一覧を見る</div>
-
-        <!-- <div>
-        <div>購入した商品</div>
-        <div class="transaction">
-          <div>取引中</div>
-          <div>過去の取引</div>
-        </div>
-        <div></div>
-        <div></div>
-      </div> -->
+        <!-- <div class="history">
+          <div>購入した商品</div>
+          <div class="transaction">
+            <div>取引中</div>
+            <div>過去の取引</div>
+          </div>
+          <div></div>
+          <div></div>
+        </div> -->
 
 
       </div>

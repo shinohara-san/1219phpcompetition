@@ -103,7 +103,7 @@ header {
 }
 
 .member{
-  display:none;
+
 }
 
 .btn {
@@ -130,7 +130,7 @@ header {
 }
 
 .non_member {
-  /* display: none; */
+  display: none;
 }
 
 .iine:hover {

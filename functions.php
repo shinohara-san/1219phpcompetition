@@ -47,7 +47,7 @@ function checkSessionId()
 function headerMenu(){
 $header = '<div class="header_width">
     <div class="header_top">
-      <div class="header_img"><a href=""><img src="img/top_logo.png" alt="ロゴ"></a></div>
+      <div class="header_img"><a href="index.php"><img src="img/top_logo.png" alt="ロゴ"></a></div>
       <div class="search_box"><input id="search_box" type="text" name="search" placeholder=" 何かお探しですか？"><a class="search_logo" href="#"><i class="fas fa-search"></i></a></div>
     </div>';
 
@@ -126,7 +126,7 @@ $header .='<div class="menu_row">
         <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
         <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
         <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-        <div class="mypage"><a href=""><i class="far fa-user-circle"></i> マイページ</a></div>
+        <div class="mypage"><a href="mypage.php"><i class="far fa-user-circle"></i> マイページ</a></div>
       </div>';
       
     $header .='<div class="flex_right non_member">
@@ -158,7 +158,7 @@ function footerMenu(){
           <div><a href="https://twitter.com/mercari_jp" target="_block" class="twitter_account"><i class="fab fa-twitter"></i></a></div>
           <div><a href="https://www.facebook.com/mercarijp" target="_block"><i class="fab fa-facebook-square"></i></a></div>
         </div>
-        <div><a href=""><img src="img/white_logo.svg" alt=""></a></div>
+        <div><a href=""><img src="img/logo-white.svg" alt=""></a></div>
       </div>
 
       <div class="column_gap">

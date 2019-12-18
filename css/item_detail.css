@@ -1,0 +1,151 @@
+main{
+  background: rgb(245,244,244);
+}
+
+.gap{
+  user-select: none;
+  color:rgb(245,244,244);
+  height:30px;
+  background:rgb(245,244,244);
+}
+
+.item_detail{
+background: white;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    padding: 30px;
+}
+
+.item_flex{
+  display: flex;
+}
+
+h1{
+   padding-bottom: 20px;
+   font-size: 25px;
+}
+
+.image_section{
+      width: 70%;
+      
+    
+}
+
+table{
+  text-align: left;
+ 
+}
+
+#table {
+border-collapse: collapse;
+border: 1px solid rgb(223, 221, 221);
+}
+ 
+#table TD {
+border: 1px solid rgb(223, 221, 221);
+}
+
+#table th:nth-child(odd){
+  background: rgb(232, 240, 247);
+    font-weight: lighter;
+    font-size: 14px;
+    padding: 8px;
+    width: 28%;
+}
+#table th:nth-child(even){
+  background: white;
+    font-weight: lighter;
+    font-size: 14px;
+    padding: 8px;
+    width: 72%;
+}
+
+h2{
+      padding: 30px 0;
+    font-size: 40px;
+}
+
+h2 > span{
+      font-weight: lighter;
+    font-size: 20px;
+}
+
+.proceed_to_purchase{
+  border: none;
+    background: red;
+    margin: auto;
+    padding: 16px;
+    font-size: 25px;
+    width: 88%;
+}
+
+.proceed_to_purchase a{
+  color: white;
+}
+
+.item_description{
+  padding: 44px;
+    text-align: left;
+}
+
+.bottom_flex{
+  display: flex;
+    justify-content: space-evenly;
+}
+
+.gray, .blue{
+  padding:10px;
+      vertical-align: text-top;
+}
+
+.blue{
+  color:blue;
+  margin-left: auto;
+}
+
+.blue:hover, .gray:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.gray{
+  background:lightgray;
+  border-radius: 25px;
+  margin: 0 10px;
+}
+
+.comment_area{
+    padding: 28px;
+    width: 50%;
+    background: white;
+    margin: auto;
+}
+
+.comment_rule{
+      font-size: 13px;
+    padding: 10px;
+    background: beige;
+    color: gray;
+    margin-bottom: 14px;
+}
+
+form textarea{
+      width: 97%;
+    height: 100px;
+    outline: none;
+    font-size: 15px;
+    padding:10px;
+    margin:auto;
+}
+
+form button{
+  margin-top: 14px;
+    border: none;
+    color: white;
+    background: darkgray;
+    padding: 17px;
+    width: 100%;
+    font-size: 14px;
+    cursor: pointer;
+}
