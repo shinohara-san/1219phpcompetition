@@ -30,7 +30,9 @@ if (
           <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
           <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
           <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
+          <div class="mypage"><a href="mypage.php?id=';
+  $view .= $id;
+  $view .= '"><i class="far fa-user-circle"></i> マイページ</a></div>
         </div>';
   $comment = '<div class="gap">コメント</div>
     <div class="comment_area">
@@ -52,9 +54,11 @@ $footerMenu = footerMenu();
 $pdo = connectToDb();
 
 $sql = 'SELECT * FROM product where id = :id';
+
 // $sql = 'SELECT * FROM product
-// LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table GROUP BY id) AS user
+// LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table) AS user
 // ON product.user_id = user.id';
+
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute();

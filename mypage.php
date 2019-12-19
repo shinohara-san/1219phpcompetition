@@ -50,16 +50,21 @@ if ($status == false) {
   $rs = $stmt->fetch();
 }
 
-if (!$rs['image']) {
+// $str = $rs['image'];
+// $str = str_replace('""', '', $str);
+
+  // var_dump($rs['image']);
+  // exit();
+
+ $image='';
+ if ($rs['image']) {
+  $image = '<img src="signup/' . $rs['image'] . '" alt="">';
+  
+ } else {
   $image = '<img src="img/nophoto.jpg" alt="">';
-} else {
-  $image = '<img src="signup/<?=';
-  $image .= $rs;
-  $image .= '["image"]?>" alt="">';
-}
-// $id=intval($id);
-// var_dump($id);
-// exit();
+ }
+ 
+
 
 // 出品個数
 $sql = 'SELECT COUNT(*) FROM product WHERE user_id = :id';
@@ -69,11 +74,11 @@ $status = $stmt->execute();
 
 //データ表示
 if ($status == false) {
-  // エラーのとき
-  showSqlErrorMsg($stmt);
+// エラーのとき
+showSqlErrorMsg($stmt);
 } else {
-  // エラーでないとき
-  $cnt = $stmt->fetch();
+// エラーでないとき
+$cnt = $stmt->fetch();
 }
 // echo $cnt;
 // exit();
