@@ -45,6 +45,7 @@ if (
   </main>';
 }
 $id = intval($_GET['id']);
+// $id = $_GET['id'];
 // echo $id;
 // exit();
 
@@ -53,11 +54,12 @@ $id = intval($_GET['id']);
 $footerMenu = footerMenu();
 $pdo = connectToDb();
 
-$sql = 'SELECT * FROM product where id = :id';
+// $sql = 'SELECT * FROM product where id = :id';
 
-// $sql = 'SELECT * FROM product
-// LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table) AS user
-// ON product.user_id = user.id';
+$sql = 'SELECT * FROM product
+LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table) AS user
+ON product.user_id = user.id
+where product.id = :id'; //追加行
 
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -70,7 +72,11 @@ if ($status == false) {
 } else {
   // エラーでないとき
   $rs = $stmt->fetch();
+  // $rs = $stmt->fetchAll();
 }
+// var_dump($id);
+// var_dump($rs);
+// exit();
 
 ?>
 <!DOCTYPE html>
@@ -199,8 +205,8 @@ if ($status == false) {
           <table id="table" border="1">
             <tr>
               <th>出品者</th>
-              <th></th>
-              <!-- <th><?= $rs['nickname'] ?></th> -->
+              <th><?= $rs['nickname']?></th>
+              
             </tr>
             <tr>
               <th>カテゴリー</th>
@@ -237,7 +243,7 @@ if ($status == false) {
 
       <h2><?= $rs['price'] ?>円<span>(税込)送料込み</span></h2>
 
-      <button type="button" class="proceed_to_purchase"><a href="purchase.php?id=<?= $rs['id'] ?>">購入画面に進む</a></button>
+      <button type="button" class="proceed_to_purchase"><a href="purchase.php?id=<?= $rs[0] ?>">購入画面に進む</a></button>
 
       <div class="item_description"><?= $rs['description'] ?></div>
       <!-- 商品の説明はありません -->

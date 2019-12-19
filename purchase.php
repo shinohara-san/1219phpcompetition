@@ -3,6 +3,7 @@ session_start();
 include('functions.php');
 
 $id = $_GET['id'];
+// var_dump($id);
 // exit();
 
 checkSessionId();
