@@ -1,5 +1,5 @@
 <?php
-// var_dump($_POST);
+// var_dump($_FILES);
 // exit();
 
 include('../functions.php');
@@ -19,9 +19,29 @@ $day = $_POST['day'];
 $kanri_flg = $_POST['kanri_flg'];
 $life_flg = $_POST['life_flg'];
 
+// プロフィール写真
+$uploadedFileName = $_FILES['image']['name']; //ファイル名の取得
+$tempPathName = $_FILES['image']['tmp_name']; //tmpフォルダの場所
+$fileDirectoryPath = 'upload/'; //アップロード先フォルダ
+
+$extension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
+// $uniqueName = date('YmdHis') . md5(session_id()) . "." . $extension;
+$uniqueName = date('YmdHis') . "." . $extension;
+$fileNameToSave = $fileDirectoryPath . $uniqueName;
+
+if (is_uploaded_file($tempPathName)) {
+  if (move_uploaded_file($tempPathName, $fileNameToSave)) {
+    chmod($fileNameToSave, 0644);
+  } else {
+    exit('Error:アップロードできませんでした'); // 画像の保存に失敗
+  }
+} else {
+  exit('Error:画像がありません');
+} 
+
 //データ登録SQL作成
-$sql = 'INSERT INTO user_table(id, nickname, email, password, family_name, given_name, family_name_kana, given_name_kana, year, month, day, kanri_flg, life_flg)
-VALUES(NULL, :a1, :a2, :a3, :a4, :a5, :a6, :a7, :a8, :a9, :a10, :a11, :a12)';
+$sql = 'INSERT INTO user_table(id, nickname, email, password, family_name, given_name, family_name_kana, given_name_kana, year, month, day, kanri_flg, life_flg, image)
+VALUES(NULL, :a1, :a2, :a3, :a4, :a5, :a6, :a7, :a8, :a9, :a10, :a11, :a12, :image)';
 // :と;を間違えるな
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':a1', $nickname, PDO::PARAM_STR);
@@ -36,6 +56,7 @@ $stmt->bindValue(':a9', $month, PDO::PARAM_INT);
 $stmt->bindValue(':a10', $day, PDO::PARAM_INT);
 $stmt->bindValue(':a11', $kanri_flg, PDO::PARAM_INT);
 $stmt->bindValue(':a12', $life_flg, PDO::PARAM_INT);
+$stmt->bindValue(':image', $fileNameToSave, PDO::PARAM_STR);
 $status = $stmt->execute();
 ?>
 <!DOCTYPE html>

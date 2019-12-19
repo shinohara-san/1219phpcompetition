@@ -20,18 +20,24 @@ if (
   session_regenerate_id(true); // OKの場合セッションidの再生成
   $_SESSION['session_id'] = session_id();
   // 新しくできたセッション変数を格納
-  $id = $_SESSION['id'];
+  $id = intval($_SESSION['id']);
+  // var_dump($id);
+  // exit();
+
   $view = '<div class="flex_right">
           <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
           <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
           <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
+          <div class="mypage"><a href="mypage.php?id=';
+  $view .= $id;
+  $view .= '"><i class="far fa-user-circle"></i> マイページ</a></div>
         </div>';
 }
 
+// $sessionid = $_SESSION['session_id'];
 
-// echo $id;
-// exit();
+// var_dump($sessionid);
+
 
 // $headerMenu = headerMenu();
 $footerMenu = footerMenu();

@@ -8,11 +8,17 @@
   <link rel="stylesheet" href="../sell/css/sell.css">
   <link rel="stylesheet" href="signup.css">
   <title>新規会員登録</title>
+  <style>
+    input[type=file]{
+      border: none;
+    }
+  </style>
+
 </head>
 
 <body>
   <div class="top"><a href="../index.php"><img src="../img/logo.svg" alt=""></a></div>
-  <form action="act.php" method="post">
+  <form action="act.php" method="post" enctype="multipart/form-data">
 
     <div class="input_top">会員情報入力</div>
     <hr>
@@ -37,6 +43,8 @@
       <label><input type="checkbox" id="password-check">パスワードを表示する</label>
       <div class="section_divider">本人確認</div>
       <div class="detail">安心・安全にご利用いただくために、お客さまの本人情報の登録にご協力ください。他のお客さまに公開されることはありません。</div>
+
+      <div style="padding-bottom:10px"><input type="file" name="image"></div>
 
       <div>お名前(全角)　<span>必須</span></div>
       <div class="name_flex">

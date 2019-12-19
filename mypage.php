@@ -6,25 +6,23 @@ if (
   !isset($_SESSION['session_id']) ||
   $_SESSION['session_id'] != session_id()
 ) {
-  // header('Location: index.php'); // ダメだった場合ログイン画面へ移動
-  $view = '<div class="flex_right">
-          <div class="register btn">
-            <a href="signup/signup.php">新規会員登録</a>
-          </div>
-          <div class="login btn">
-            <a href="login/login.php">ログイン</a>
-          </div>
-        </div>';
+  header('Location: index.php'); // ダメだった場合ログイン画面へ移動
+
 } else {
   session_regenerate_id(true); // OKの場合セッションidの再生成
   $_SESSION['session_id'] = session_id();
+  $id = $_GET['id'];
+  // var_dump($id);
+  // exit();
   // 新しくできたセッション変数を格納
   // $id = $_SESSION['id'];
   $view = '<div class="flex_right">
           <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
           <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
           <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
+          <div class="mypage"><a href="mypage.php?id=';
+  $view .= $id;
+  $view .= '"><i class="far fa-user-circle"></i> マイページ</a></div>
         </div>';
 }
 
@@ -32,10 +30,11 @@ $headerMenu = headerMenu();
 $footerMenu = footerMenu();
 $pdo = connectToDb();
 
+// var_dump(($_GET['id']));
 // var_dump(intval($_GET['id']));
 // exit();
-// 写真をデータベースから持ってくる
-$id = intval($_GET['id']);
+
+
 
 $sql = 'SELECT * FROM user_table WHERE id = :id';
 $stmt = $pdo->prepare($sql);
@@ -51,9 +50,36 @@ if ($status == false) {
   $rs = $stmt->fetch();
 }
 
-// echo $rs;
+if (!$rs['image']) {
+  $image = '<img src="img/nophoto.jpg" alt="">';
+} else {
+  $image = '<img src="signup/<?=';
+  $image .= $rs;
+  $image .= '["image"]?>" alt="">';
+}
+// $id=intval($id);
+// var_dump($id);
 // exit();
 
+// 出品個数
+$sql = 'SELECT COUNT(*) FROM product WHERE user_id = :id';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$status = $stmt->execute();
+
+//データ表示
+if ($status == false) {
+  // エラーのとき
+  showSqlErrorMsg($stmt);
+} else {
+  // エラーでないとき
+  $cnt = $stmt->fetch();
+}
+// echo $cnt;
+// exit();
+
+// var_dump($_cnt);
+// exit();
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +97,7 @@ if ($status == false) {
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <title>マイページ</title>
 </head>
+<img src="" alt="">
 
 <body>
   <div class="header_width">
@@ -91,7 +118,7 @@ if ($status == false) {
             <li class="category_search">
               <a class="category_root" href=""></a><span><i class="fas fa-list"></i></span>
               カテゴリーから探す</a>
-              <ul class="list1">
+              <ul class="list1" style="top:90px">
                 <li class="ladies_list">
                   <a href="#">レディース</a>
                   <ul class="ladies_category">
@@ -141,7 +168,7 @@ if ($status == false) {
           <li class="brand_search">
             <a href=""></a><span><i class="fas fa-tag"></i></span>
             ブランドから探す</a>
-            <ul class="list2">
+            <ul class="list2" style="top:90px">
               <!-- <ul class="list2"> -->
               <li style="margin-top: 11px;"><a href="#">シャネル</a></li>
               <li><a href="#">ナイキ</a></li>
@@ -155,22 +182,6 @@ if ($status == false) {
         </div>
       </div>
       <?= $view ?>
-      <!-- <div class="flex_right">
-          <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
-          <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
-          <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
-        </div> -->
-
-      <!-- <div class="flex_right">
-          <div class="register btn">
-            <a href="signup/signup.php">新規会員登録</a>
-          </div>
-          <div class="login btn">
-            <a href="login/login.php">ログイン</a>
-          </div>
-        </div> -->
-
     </div>
   </div>
 
@@ -212,11 +223,11 @@ if ($status == false) {
 
       <div class="mypage_right">
         <div class="mypage_right_top">
-          <div class="profile_picture"><img src="https://gurimu-blog.com/wp-content/uploads/%E6%9C%89%E6%9D%91%E6%9E%B6%E7%B4%94-%E5%A4%A7%E5%AD%A6.jpg" alt=""></div>
+          <div class="profile_picture"><?= $image ?></div>
           <div class="user_name"><?= $rs['nickname'] ?></div>
           <div class="right_top_flex">
             <div>評価 59</div>
-            <div>出品数 69</div>
+            <div>出品数 <?= $cnt['COUNT(*)'] ?></div>
           </div>
         </div>
         <div class="mypage_right_middle">

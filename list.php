@@ -8,7 +8,7 @@ include('functions.php');
 $search = $_GET['search'];
 
 $pdo = connectToDb();
-$sql = "SELECT * FROM product WHERE name LIKE '%" . $search . "%'";
+$sql = "SELECT * FROM product WHERE name LIKE '%" . $search . "%' OR category LIKE '%". $search . "%'  OR item_condition LIKE '%" . $search . "%'  OR area LIKE '%" . $search . "%'  OR description LIKE '%" . $search . "%'";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -27,7 +27,7 @@ $all = $stmt->fetchAll();
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/product.css">
   <link rel="stylesheet" href="css/footer.css">
- 
+
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <title>検索一覧</title>
   <style>
@@ -38,6 +38,15 @@ $all = $stmt->fetchAll();
     .top {
       width: 15%;
       margin: 30px auto;
+    }
+
+    .product_inner {
+      flex-wrap: wrap;
+      display: flex;
+      width: 70%;
+      margin: 0 auto;
+      justify-content: space-evenly;
+      padding-bottom: 60px;
     }
   </style>
 
@@ -57,7 +66,7 @@ $all = $stmt->fetchAll();
         </div>
       <?php endfor; ?>
     </div>
-    
+
 
   </body>
 

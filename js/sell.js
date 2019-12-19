@@ -28,8 +28,11 @@ $('.price_input_input').on('change', function () {
     return;
   }
   // console.log(price);
-  let profit = Math.floor($('.transaction_fee').text(price * 0.1));
-  profit = (profit[0].textContent);
+  let profit = $('.transaction_fee').text(Math.floor(price * 0.1));
+  // console.log(profit);
+  // console.log(price);
+  profit = profit[0].innerText;
+  console.log(profit);
   $('.profit').text(price - profit);
 });
 
