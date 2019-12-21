@@ -2,7 +2,7 @@
 
 session_start();
 include('functions.php');
-
+$pdo = connectToDb();
 // var_dump($_GET);
 // var_dump($_POST);
 // var_dump($_SESSION);
@@ -12,6 +12,26 @@ if (
   $_SESSION['session_id'] != session_id()
 ) {
   // header('Location: index.php'); // ダメだった場合ログイン画面へ移動
+  $item_id = intval($_GET['id']);
+  $sql = 'SELECT * FROM product
+  LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table) AS user
+  ON product.user_id = user.id
+  where product.id = :id'; //追加行
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':id', $item_id, PDO::PARAM_INT);
+  $status = $stmt->execute();
+
+  //データ表示
+  if ($status == false) {
+    // エラーのとき
+    showSqlErrorMsg($stmt);
+  } else {
+    // エラーでないとき
+    $rs = $stmt->fetch();
+    // $rs = $stmt->fetchAll();
+  }
+
   $view = '<div class="flex_right">
           <div class="register btn">
             <a href="signup/signup.php">新規会員登録</a>
@@ -21,17 +41,41 @@ if (
           </div>
         </div>';
   $comment = '';
+  $link_to_buy = 'login/login.php';
 } else {
   session_regenerate_id(true); // OKの場合セッションidの再生成
   $_SESSION['session_id'] = session_id();
   // 新しくできたセッション変数を格納
-  $id = $_SESSION['id'];
+  $user_id = $_SESSION['id']; //ユーザー
+  $item_id = intval($_GET['id']);
+  // $sql = 'SELECT * FROM product where id = :id';
+
+  $sql = 'SELECT * FROM product
+LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table) AS user
+ON product.user_id = user.id
+where product.id = :id'; //追加行
+
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':id', $item_id, PDO::PARAM_INT);
+  $status = $stmt->execute();
+
+  //データ表示
+  if ($status == false) {
+    // エラーのとき
+    showSqlErrorMsg($stmt);
+  } else {
+    // エラーでないとき
+    $rs = $stmt->fetch();
+    // $rs = $stmt->fetchAll();
+  }
+  // var_dump($rs[0]);
+  // exit();
   $view = '<div class="flex_right">
           <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
           <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
           <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
           <div class="mypage"><a href="mypage.php?id=';
-  $view .= $id;
+  $view .= $user_id;
   $view .= '"><i class="far fa-user-circle"></i> マイページ</a></div>
         </div>';
   $comment = '<div class="gap">コメント</div>
@@ -43,8 +87,9 @@ if (
       </form>
     </div>
   </main>';
+  $link_to_buy = 'purchase.php?id='.$rs[0];
 }
-$id = intval($_GET['id']);
+
 // $id = $_GET['id'];
 // echo $id;
 // exit();
@@ -52,28 +97,7 @@ $id = intval($_GET['id']);
 
 // $headerMenu = headerMenu();
 $footerMenu = footerMenu();
-$pdo = connectToDb();
 
-// $sql = 'SELECT * FROM product where id = :id';
-
-$sql = 'SELECT * FROM product
-LEFT OUTER JOIN (SELECT nickname, id AS id FROM user_table) AS user
-ON product.user_id = user.id
-where product.id = :id'; //追加行
-
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $id, PDO::PARAM_INT);
-$status = $stmt->execute();
-
-//データ表示
-if ($status == false) {
-  // エラーのとき
-  showSqlErrorMsg($stmt);
-} else {
-  // エラーでないとき
-  $rs = $stmt->fetch();
-  // $rs = $stmt->fetchAll();
-}
 // var_dump($id);
 // var_dump($rs);
 // exit();
@@ -243,7 +267,7 @@ if ($status == false) {
 
       <h2><?= $rs['price'] ?>円<span>(税込)送料込み</span></h2>
 
-      <button type="button" class="proceed_to_purchase"><a href="purchase.php?id=<?= $rs[0] ?>">購入画面に進む</a></button>
+      <button type="button" class="proceed_to_purchase"><a href="<?=$link_to_buy?>">購入画面に進む</a></button>
 
       <div class="item_description"><?= $rs['description'] ?></div>
       <!-- 商品の説明はありません -->

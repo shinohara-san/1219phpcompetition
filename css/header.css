@@ -145,8 +145,14 @@ header {
   color: blue;
 }
 
-.non_member {
-  /* display: none; */
+.login:hover{
+  background:blue;
+  transition: 1s;
+}
+
+.login:hover a{
+  color:white;
+  transition: 1s;
 }
 
 .iine:hover {

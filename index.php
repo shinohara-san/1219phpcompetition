@@ -8,6 +8,7 @@ if (
   $_SESSION['session_id'] != session_id()
 ) {
   // header('Location: index.php'); // ダメだった場合ログイン画面へ移動
+  $link_to_sell = '<a href="login/login.php">';
   $view = '<div class="flex_right">
           <div class="register btn">
             <a href="signup/signup.php">新規会員登録</a>
@@ -20,20 +21,45 @@ if (
   session_regenerate_id(true); // OKの場合セッションidの再生成
   $_SESSION['session_id'] = session_id();
   // 新しくできたセッション変数を格納
-  $id = intval($_SESSION['id']);
+  // $id = intval($_SESSION['id']);
+  $pdo = connectToDb();
+  // マイページ横写真用
+  $id = $_SESSION['id'];
   // var_dump($id);
   // exit();
+  $sql = 'SELECT * FROM user_table where id = :id';
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+  $status = $stmt->execute();
+  //データ表示
+  if ($status == false) {
+    // エラーのとき
+    showSqlErrorMsg($stmt);
+  } else {
+    // エラーでないとき
+    $rs = $stmt->fetch();
+  }
+  // var_dump($rs);
+  // exit();
+  $link_to_sell = '<a href="sell/sell.php">';
 
   $view = '<div class="flex_right">
           <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
           <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
           <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-          <div class="mypage"><a href="mypage.php?id=';
+          <div class="mypage" style="114px"><a href="mypage.php?id=';
   $view .= $id;
   $view .= '"><i class="far fa-user-circle"></i> マイページ</a></div>
         </div>';
+  // $view .= '"><img src="signup/'.$rs['image'].'" alt=""> マイページ</a></div>
+  //       </div>';
+
+
+
 }
 
+// var_dump($id);
+// exit();
 // $sessionid = $_SESSION['session_id'];
 
 // var_dump($sessionid);
@@ -107,7 +133,7 @@ $nike = $stmt->fetchAll();
 
 <body>
 
-  <div class="shuppin_btn" style="z-index:1"><a href="sell/sell.php">出品<div class="camera_btn"><i class="fas fa-camera"></i></div></a></div>
+  <div class="shuppin_btn" style="z-index:1"><?= $link_to_sell?>出品<div class="camera_btn"><i class="fas fa-camera"></i></div></a></div>
   <main>
     <div class="header_width">
 
@@ -178,7 +204,6 @@ $nike = $stmt->fetchAll();
               <a href=""></a><span><i class="fas fa-tag"></i></span>
               ブランドから探す</a>
               <ul class="list2">
-                <!-- <ul class="list2"> -->
                 <li style="margin-top: 11px;"><a href="#">シャネル</a></li>
                 <li><a href="#">ナイキ</a></li>
                 <li><a href="#">ルイ ヴィトン</a></li>
@@ -191,22 +216,6 @@ $nike = $stmt->fetchAll();
           </div>
         </div>
         <?= $view ?>
-        <!-- <div class="flex_right">
-          <div class="iine"><a href=""><i class="far fa-heart"></i> いいね!一覧</a></div>
-          <div class="notice"><a href=""><i class="far fa-bell"></i> お知らせ</a></div>
-          <div class="todo"><a href=""><i class="fas fa-check"></i> やることリスト</a></div>
-          <div class="mypage"><a href="mypage.php?id=<?= $id ?>"><i class="far fa-user-circle"></i> マイページ</a></div>
-        </div> -->
-
-        <!-- <div class="flex_right">
-          <div class="register btn">
-            <a href="signup/signup.php">新規会員登録</a>
-          </div>
-          <div class="login btn">
-            <a href="login/login.php">ログイン</a>
-          </div>
-        </div> -->
-
       </div>
     </div>
 
@@ -402,288 +411,291 @@ $nike = $stmt->fetchAll();
                   </a>
                 </div>
               </div>
-              <div class="product_section">
-                <div class="category_title">
-                  <div id="vuitton" class="category_title_title">ルイヴィトン新着アイテム</div>
-                  <div class="see_more"><a href="" class="see_more">もっと見る&gt;</a></div>
-                </div>
-                <div class="product_inner">
-                  <!-- コピー -->
-                  <?php for ($i = 0; $i < count($vuitton); $i++) : ?>
-                    <div class="each_product">
-                      <a href="item_detail.php?id=<?= $vuitton[$i]['id'] ?>">
-                        <div class="product_pic"><img class="product_img" src="sell/<?= $vuitton[$i]['image'] ?>" alt="">
-                          <div class="price">¥<?= $vuitton[$i]['price'] ?>円</div>
-                        </div>
-                        <div class="product_info"><?= $vuitton[$i]['description'] ?></div>
-                      </a>
-                    </div>
-                  <?php endfor; ?>
-                  <!-- コピー終わり -->
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                  <div class="each_product">
-                    <a href="item_detail.php">
-                      <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
-                        <div class="price">¥3000円</div>
-                      </div>
-                      <div class="product_info">ああああ</div>
-                    </a>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="product_section">
-              <div class="category_title">
-                <div id="supreme" class="category_title_title">シュプリーム新着アイテム</div>
-                <div class="see_more"><a href="" class="see_more">もっと見る&gt;</a></div>
-              </div>
-              <div class="product_inner">
-                <!-- コピー -->
-                <?php for ($i = 0; $i < count($supreme); $i++) : ?>
-                  <div class="each_product">
-                    <a href="item_detail.php?id=<?= $supreme[$i]['id'] ?>">
-                      <div class="product_pic"><img class="product_img" src="sell/<?= $supreme[$i]['image'] ?>" alt="">
-                        <div class="price">¥<?= $supreme[$i]['price'] ?>円</div>
-                      </div>
-                      <div class="product_info"><?= $supreme[$i]['description'] ?></div>
-                    </a>
-                  </div>
-                <?php endfor; ?>
-                <!-- コピー終わり -->
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-              </div>
+          </div>
+
+          <div class="product_section">
+            <div class="category_title">
+              <div id="vuitton" class="category_title_title">ルイヴィトン新着アイテム</div>
+              <div class="see_more"><a href="" class="see_more">もっと見る&gt;</a></div>
             </div>
-            <div class="product_section">
-              <div class="category_title">
-                <div id="nike" class="category_title_title">ナイキ新着アイテム</div>
-                <div class="see_more"><a href="" class="see_more">もっと見る&gt;</a></div>
-              </div>
-              <div class="product_inner">
-                <!-- コピー -->
-                <?php for ($i = 0; $i < count($nike); $i++) : ?>
-                  <div class="each_product">
-                    <a href="item_detail.php?id=<?= $nike[$i]['id'] ?>">
-                      <div class="product_pic"><img class="product_img" src="sell/<?= $nike[$i]['image'] ?>" alt="">
-                        <div class="price">¥<?= $nike[$i]['price'] ?>円</div>
-                      </div>
-                      <div class="product_info"><?= $nike[$i]['description'] ?></div>
-                    </a>
+            <div class="product_inner">
+              <!-- コピー -->
+              <?php for ($i = 0; $i < count($vuitton); $i++) : ?>
+                <div class="each_product">
+                  <a href="item_detail.php?id=<?= $vuitton[$i]['id'] ?>">
+                    <div class="product_pic"><img class="product_img" src="sell/<?= $vuitton[$i]['image'] ?>" alt="">
+                      <div class="price">¥<?= $vuitton[$i]['price'] ?>円</div>
+                    </div>
+                    <div class="product_info"><?= $vuitton[$i]['description'] ?></div>
+                  </a>
+                </div>
+              <?php endfor; ?>
+              <!-- コピー終わり -->
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
                   </div>
-                <?php endfor; ?>
-                <!-- コピー終わり -->
-
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-                <div class="each_product">
-                  <a href="item_detail.php">
-                    <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
-                      <div class="price">¥3000円</div>
-                    </div>
-                    <div class="product_info">ああああ</div>
-                  </a>
-                </div>
-
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
+              </div>
+              <div class="each_product">
+                <a href="item_detail.php">
+                  <div class="product_pic"><img class="product_img" src="dummy/vuitton.jpg" alt="">
+                    <div class="price">¥3000円</div>
+                  </div>
+                  <div class="product_info">ああああ</div>
+                </a>
               </div>
             </div>
           </div>
         </div>
+        <div class="product_section">
+          <div class="category_title">
+            <div id="supreme" class="category_title_title">シュプリーム新着アイテム</div>
+            <div class="see_more"><a href="" class="see_more">もっと見る&gt;</a></div>
+          </div>
+          <div class="product_inner">
+            <!-- コピー -->
+            <?php for ($i = 0; $i < count($supreme); $i++) : ?>
+              <div class="each_product">
+                <a href="item_detail.php?id=<?= $supreme[$i]['id'] ?>">
+                  <div class="product_pic"><img class="product_img" src="sell/<?= $supreme[$i]['image'] ?>" alt="">
+                    <div class="price">¥<?= $supreme[$i]['price'] ?>円</div>
+                  </div>
+                  <div class="product_info"><?= $supreme[$i]['description'] ?></div>
+                </a>
+              </div>
+            <?php endfor; ?>
+            <!-- コピー終わり -->
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/supreme.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="product_section">
+          <div class="category_title">
+            <div id="nike" class="category_title_title">ナイキ新着アイテム</div>
+            <div class="see_more"><a href="" class="see_more">もっと見る&gt;</a></div>
+          </div>
+          <div class="product_inner">
+            <!-- コピー -->
+            <?php for ($i = 0; $i < count($nike); $i++) : ?>
+              <div class="each_product">
+                <a href="item_detail.php?id=<?= $nike[$i]['id'] ?>">
+                  <div class="product_pic"><img class="product_img" src="sell/<?= $nike[$i]['image'] ?>" alt="">
+                    <div class="price">¥<?= $nike[$i]['price'] ?>円</div>
+                  </div>
+                  <div class="product_info"><?= $nike[$i]['description'] ?></div>
+                </a>
+              </div>
+            <?php endfor; ?>
+            <!-- コピー終わり -->
+
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+            <div class="each_product">
+              <a href="item_detail.php">
+                <div class="product_pic"><img class="product_img" src="dummy/nike.jpg" alt="">
+                  <div class="price">¥3000円</div>
+                </div>
+                <div class="product_info">ああああ</div>
+              </a>
+            </div>
+
+          </div>
+        </div>
       </div>
+    </div>
+    </div>
     </div>
     </div>
   </main>

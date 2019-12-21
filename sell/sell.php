@@ -17,6 +17,11 @@ checkSessionId();
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/sell.css">
   <title>出品ページ</title>
+  <style>
+    *{
+      outline: none;
+    }
+  </style>
 </head>
 
 <body>
