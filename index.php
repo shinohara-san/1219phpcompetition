@@ -249,7 +249,7 @@ $nike = $stmt->fetchAll();
                   <div class="product_pic"><img class="product_img" src="sell/<?= $products[$i]['image'] ?>" alt="">
                     <div class="price">¥<?= $products[$i]['price'] ?>円</div>
                   </div>
-                  <div class="product_info"><?= $products[$i]['description'] ?></div>
+                  <div class="product_info"><?= $products[$i]['name'] ?></div>
                 </a>
               </div>
             <?php endfor; ?>
@@ -267,7 +267,7 @@ $nike = $stmt->fetchAll();
                   <div class="product_pic"><img class="product_img" src="sell/<?= $mens[$i]['image'] ?>" alt="">
                     <div class="price">¥<?= $mens[$i]['price'] ?>円</div>
                   </div>
-                  <div class="product_info"><?= $mens[$i]['description'] ?></div>
+                  <div class="product_info"><?= $mens[$i]['name'] ?></div>
                 </a>
               </div>
             <?php endfor; ?>
@@ -285,7 +285,7 @@ $nike = $stmt->fetchAll();
                   <div class="product_pic"><img class="product_img" src="sell/<?= $homeappliance[$i]['image'] ?>" alt="">
                     <div class="price">¥<?= $homeappliance[$i]['price'] ?>円</div>
                   </div>
-                  <div class="product_info"><?= $homeappliance[$i]['description'] ?></div>
+                  <div class="product_info"><?= $homeappliance[$i]['name'] ?></div>
                 </a>
               </div>
             <?php endfor; ?>
@@ -302,7 +302,7 @@ $nike = $stmt->fetchAll();
                   <div class="product_pic"><img class="product_img" src="sell/<?= $toy[$i]['image'] ?>" alt="">
                     <div class="price">¥<?= $toy[$i]['price'] ?>円</div>
                   </div>
-                  <div class="product_info"><?= $toy[$i]['description'] ?></div>
+                  <div class="product_info"><?= $toy[$i]['name'] ?></div>
                 </a>
               </div>
             <?php endfor; ?>
@@ -333,7 +333,7 @@ $nike = $stmt->fetchAll();
                       <div class="product_pic"><img class="product_img" src="sell/<?= $chanel[$i]['image'] ?>" alt="">
                         <div class="price">¥<?= $chanel[$i]['price'] ?>円</div>
                       </div>
-                      <div class="product_info"><?= $chanel[$i]['description'] ?></div>
+                      <div class="product_info"><?= $chanel[$i]['name'] ?></div>
                     </a>
                   </div>
                 <?php endfor; ?>
